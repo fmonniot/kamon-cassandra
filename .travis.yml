@@ -9,10 +9,10 @@ jdk:
 sudo: required
 
 # Use a recent Cassandra version
-before_install:
-  - sudo rm -rf /var/lib/cassandra/*
-  - mkdir -p /opt/cassandra
-  - wget -P /opt/cassandra http://www.us.apache.org/dist/cassandra/3.11.2/apache-cassandra-3.11.2-bin.tar.gz && tar -xvzf /opt/cassandra/apache-cassandra-3.11.2-bin.tar.gz && sh /opt/cassandra/apache-cassandra-3.11.2/bin/cassandra
+#before_install:
+#  - sudo rm -rf /var/lib/cassandra/*
+#  - mkdir -p /opt/cassandra
+#  - wget -P /opt/cassandra http://www.us.apache.org/dist/cassandra/3.11.2/apache-cassandra-3.11.2-bin.tar.gz && tar -xvzf /opt/cassandra/apache-cassandra-3.11.2-bin.tar.gz && sh /opt/cassandra/apache-cassandra-3.11.2/bin/cassandra
 
 before_script:
   - mkdir $TRAVIS_BUILD_DIR/tmp
