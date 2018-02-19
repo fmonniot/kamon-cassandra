@@ -1,11 +1,9 @@
 # Kamon Cassandra <img align="right" src="https://rawgit.com/kamon-io/Kamon/master/kamon-logo.svg" height="150px" style="padding-left: 20px"/> 
-[![Build Status](https://travis-ci.org/kamon-io/kamon-http4s.svg?branch=master)](https://travis-ci.org/kamon-io/kamon-http4s)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kamon-io/Kamon?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.kamon/kamon-http4s_2.12/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.kamon/kamon-http4s_2.12)
+[![Build Status](https://travis-ci.org/fmonniot/kamon-cassandra.svg?branch=master)](https://travis-ci.org/fmonniot/kamon-cassandra)
+[ ![Download](https://api.bintray.com/packages/fmonniot/maven/kamon-cassandra/images/download.svg) ](https://bintray.com/fmonniot/maven/kamon-cassandra/_latestVersion)
 
 TODO Fix todo in this README
 TODO Investigate the Kamon-agent solution (and add tests if possible)
-TODO Publish to bintray automatically
 TODO License all the files
 TODO Add unit tests for SessionAdvices (object)
 
@@ -25,10 +23,10 @@ Supported releases and dependencies are shown below.
 
 
 
-To get started with SBT, simply add the following to your `build.sbt`
-file:
+To get started with SBT, simply add the following to your `build.sbt` file:
 
 ```scala
+// TODO Add resolvers and mention of snapshots
 libraryDependencies += "eu.monniot.kamon" %% "kamon-cassandra" % "1.0.0"
 ```
 
@@ -124,7 +122,7 @@ Clicking on a span will bring up a details view where you can see all tags for t
 That's it, you are now collecting metrics and tracing information from a [cassandra][4] database.
 
 
-[0]:https://mvnrepository.com/artifact/io.kamon/kamon-agent/0.0.8-experimental
+[0]: https://mvnrepository.com/artifact/io.kamon/kamon-agent/0.0.8-experimental
 [1]: https://github.com/sbt/sbt-javaagent
 [2]: https://github.com/kamon-io/kamon-agent
 [3]: https://prometheus.io/docs/operating/configuration/#scrape-configurations-scrape_config
