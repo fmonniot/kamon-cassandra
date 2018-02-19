@@ -212,7 +212,7 @@ class IntegrationSpec extends FlatSpec with Matchers with BeforeAndAfterAll with
   var registration: Registration = Kamon.addReporter(reporter)
 
   val cluster: Cluster = Cluster.builder()
-    .addContactPoint("localhost")
+    .addContactPoint("127.0.0.1")
     .build()
   var session: Session = _
 
@@ -223,7 +223,9 @@ class IntegrationSpec extends FlatSpec with Matchers with BeforeAndAfterAll with
   private def waitSomeTime(): Unit = sleep(4)
 
   override protected def beforeAll(): Unit = {
-    EmbeddedCassandraServerHelper.startEmbeddedCassandra()
+    if (sys.env.exists { case (k, v) => k == "EMBEDDED_CASSANDRA" && v == "true" }) {
+      EmbeddedCassandraServerHelper.startEmbeddedCassandra()
+    }
     session = cluster.connect()
 
     // Don't sample the query belows (setup)
