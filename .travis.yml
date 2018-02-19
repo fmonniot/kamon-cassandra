@@ -5,20 +5,23 @@ scala:
 jdk:
    - oraclejdk8
 
+# We cannot use the container based env because Cassandra isn't supported there
+sudo: required
+
+# Use a recent Cassandra version
+before_install:
+  - sudo rm -rf /var/lib/cassandra/*
+  - wget http://www.us.apache.org/dist/cassandra/3.11.2/apache-cassandra-3.11.2-bin.tar.gz && tag -xvzf apache-cassandra-3.11.2-bin.tar.gz && sudo sh apache-cassandra-3.11.2/bin/cassandra
+
 before_script:
   - mkdir $TRAVIS_BUILD_DIR/tmp
-  - export SBT_OPTS="-Djava.io.tmpdir=$TRAVIS_BUILD_DIR/tmp"
 
 script:
   - sbt +test +publish
 
 env:
   - EMBEDDED_CASSANDRA=false
-
-# We cannot use the container based env because Cassandra isn't supported there
-sudo: required
-services:
-  - cassandra
+  - SBT_OPTS="-Djava.io.tmpdir=$TRAVIS_BUILD_DIR/tmp"
 
 # These directories are cached to S3 at the end of the build
 cache:
