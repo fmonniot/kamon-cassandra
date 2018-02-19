@@ -1,14 +1,32 @@
 language: scala
-script:
-  - sbt test
 scala:
    - 2.12.4
+
 jdk:
    - oraclejdk8
+
 before_script:
   - mkdir $TRAVIS_BUILD_DIR/tmp
   - export SBT_OPTS="-Djava.io.tmpdir=$TRAVIS_BUILD_DIR/tmp"
-sudo: false
+
+script:
+  - sbt +test +publish
+
 env:
   - EMBEDDED_CASSANDRA=false
 
+# We cannot use the container based env because Cassandra isn't supported there
+sudo: required
+services:
+  - cassandra
+
+# These directories are cached to S3 at the end of the build
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt
+
+# Cleanup the cached directories to avoid unnecessary cache updates
+before_cache:
+  - find $HOME/.ivy2/cache -name "ivydata-*.properties" -print -delete
+  - find $HOME/.sbt        -name "*.lock"               -print -delete
