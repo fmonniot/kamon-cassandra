@@ -1,7 +1,7 @@
 import scala.util.Try
 import sbt.ProcessLogger
 
-val kamonCassandraVersion = "1.0.1"
+val kamonCassandraVersion = "1.0.0"
 
 val kamonCore = "io.kamon" %% "kamon-core" % "1.0.0"
 val kamonTestKit = "io.kamon" %% "kamon-testkit" % "1.0.0"
@@ -44,26 +44,3 @@ lazy val playground = (project in file("playground"))
     cancelable in Global := true
   ))
   .settings(noPublishing)
-
-
-def boolEnv(name: String) = sys.env.get(name).flatMap(s => Try(s.toBoolean).toOption).getOrElse(false)
-
-val noOpProcessLogger = new ProcessLogger {
-  override def error(s: => String): Unit = ()
-
-  override def buffer[T](f: => T): T = f
-
-  override def info(s: => String): Unit = ()
-}
-
-def publishOnlyWithTravis = Def.taskDyn[Unit] {
-  val log = streams.value.log
-  val isTravis = boolEnv("CI") && boolEnv("TRAVIS")
-  val branch = Process("git rev-parse --abbrev-ref HEAD").lines.head
-
-  log.debug(s"is running on travis: $isTravis")
-  log.debug(s"is running on branch: $branch")
-
-  if (isTravis && branch == "master") (publish in ThisBuild).toTask
-  else Def.task(log.warn("Won't publish unless built by Travis CI on master"))
-}
