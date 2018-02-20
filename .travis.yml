@@ -6,7 +6,7 @@ jdk:
    - oraclejdk8
 
 # We cannot use the container based env because Cassandra isn't supported there
-sudo: required
+sudo: false
 
 # Use a recent Cassandra version
 #before_install:
@@ -17,7 +17,7 @@ sudo: required
 before_script:
   - mkdir $TRAVIS_BUILD_DIR/tmp
   - export SBT_OPTS="-Djava.io.tmpdir=$TRAVIS_BUILD_DIR/tmp"
-  - export EMBEDDED_CASSANDRA=false
+  - export EMBEDDED_CASSANDRA=true
 
 script:
   - sbt +test +publish
@@ -27,7 +27,7 @@ cache:
   directories:
     - $HOME/.ivy2/cache
     - $HOME/.sbt
-    - /opt/cassandra
+#    - /opt/cassandra
 
 # Cleanup the cached directories to avoid unnecessary cache updates
 before_cache:
