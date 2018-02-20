@@ -223,9 +223,7 @@ class IntegrationSpec extends FlatSpec with Matchers with BeforeAndAfterAll with
   private def waitSomeTime(): Unit = sleep(4)
 
   override protected def beforeAll(): Unit = {
-//    if (sys.env.exists { case (k, v) => k == "EMBEDDED_CASSANDRA" && v == "true" }) {
-      EmbeddedCassandraServerHelper.startEmbeddedCassandra()
-//    }
+    EmbeddedCassandraServerHelper.startEmbeddedCassandra(30 * 1000)
     session = cluster.connect()
 
     // Don't sample the query belows (setup)
