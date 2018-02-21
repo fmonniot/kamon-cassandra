@@ -34,7 +34,7 @@ before_cache:
   - find $HOME/.ivy2/cache -name "ivydata-*.properties" -print -delete
   - find $HOME/.sbt        -name "*.lock"               -print -delete
 
-# Publish on master and tagged
+# Publish on master or tagged
 after_success:
- - test $TRAVIS_BRANCH = "master" -o $TRAVIS_BRANCH = $TRAVIS_TAG &&
-     sbt +publish
+ - test $TRAVIS_BRANCH = "master"    && sbt +publish
+ - test $TRAVIS_BRANCH = $TRAVIS_TAG && sbt +publish
