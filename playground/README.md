@@ -1,5 +1,7 @@
 # Kamon Cassandra playground <img align="right" src="https://rawgit.com/kamon-io/Kamon/master/kamon-logo.svg" height="150px" style="padding-left: 20px"/>
 
+--------------------
+
 ## Metrics and Tracing for cassandra with Akka-HTTP in 3 steps
 
 Here is a quick guide on how to integrates Kamon-Cassandra into your project.

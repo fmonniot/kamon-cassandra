@@ -5,9 +5,7 @@
 --------------------
 
 
-*`kamon-cassandra`* module provides bytecode instrumentation that brings automatic traces and metrics to the [official Cassandra driver].
-
-Kamon <b>kamon-cassandra</b> is currently available for Scala 2.11 and 2.12.
+The **`kamon-cassandra`** module provides bytecode instrumentation that brings automatic traces and metrics to the [official Cassandra driver].
 
 ### Adding the Module
 
@@ -23,6 +21,7 @@ To get started with SBT, simply add the following to your `build.sbt` file:
 ```scala
 resolvers += Resolver.bintrayRepo("fmonniot", "maven")
 // Or you can use `Resolver.bintrayRepo("fmonniot", "snapshots")` to use the snapshots versions
+
 libraryDependencies += "eu.monniot.kamon" %% "kamon-cassandra" % "1.0.0"
 ```
 
