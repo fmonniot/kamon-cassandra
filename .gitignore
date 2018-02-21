@@ -38,3 +38,4 @@ _site
 
 # Default sigar library provision location.
 native/
+.bintray_credentials
