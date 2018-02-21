@@ -6,7 +6,14 @@ jdk:
    - oraclejdk8
 
 # We cannot use the container based env because Cassandra isn't supported there
-sudo: false
+sudo: required
+
+services:
+- docker
+
+before_install:
+ - docker pull cassandra:3
+ - docker run -d -p 7199:7199 -p 9142:9042 -p 9160:9160 -e CASSANDRA_DC=DC1 -e CASSANDRA_START_RPC=true  -e CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch cassandra:3
 
 # Use a recent Cassandra version
 #before_install:
@@ -17,7 +24,7 @@ sudo: false
 before_script:
   - mkdir $TRAVIS_BUILD_DIR/tmp
   - export SBT_OPTS="-Djava.io.tmpdir=$TRAVIS_BUILD_DIR/tmp"
-  - export EMBEDDED_CASSANDRA=true
+  - export EMBEDDED_CASSANDRA=false
 
 script:
   - sbt +test +publish
