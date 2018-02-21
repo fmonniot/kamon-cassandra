@@ -5,7 +5,6 @@
 
 - TODO Fix todo in this README
 - TODO Investigate the Kamon-agent solution (and add tests if possible)
-- TODO License all the files
 - TODO Add unit tests for SessionAdvices (object)
 
 ### Getting Started

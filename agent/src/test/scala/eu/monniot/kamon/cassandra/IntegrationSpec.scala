@@ -24,7 +24,6 @@ import kamon.testkit.{MetricInspection, Reconfigure, TestSpanReporter}
 import kamon.trace.Span.TagValue
 import kamon.trace.SpanCustomizer
 import kamon.util.Registration
-//import org.cassandraunit.utils.EmbeddedCassandraServerHelper
 import org.scalatest._
 import org.scalatest.concurrent.{JavaFutures, ScalaFutures}
 
@@ -221,10 +220,9 @@ class IntegrationSpec extends FlatSpec with Matchers with BeforeAndAfterAll with
   // - one is the Kamon tick to flush the trace (happens every milliseconds)
   // - second is because the underlying instrumentation is async and the callback
   //   may not be fired immediately, so we wait a bit for it to be.
-  private def waitSomeTime(): Unit = sleep(4)
+  private def waitSomeTime(): Unit = sleep(10)
 
   override protected def beforeAll(): Unit = {
-//    EmbeddedCassandraServerHelper.startEmbeddedCassandra(30 * 1000)
     session = cluster.connect()
 
     // Don't sample the query belows (setup)
