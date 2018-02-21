@@ -4,10 +4,15 @@ import sbt.ProcessLogger
 val kamonCassandraVersion = "1.0.0"
 
 val kamonCore = "io.kamon" %% "kamon-core" % "1.0.0"
-val kamonTestKit = "io.kamon" %% "kamon-testkit" % "1.0.0"
 
 val core = "com.datastax.cassandra" % "cassandra-driver-core" % "3.3.2"
+
+val kamonTestKit = "io.kamon" %% "kamon-testkit" % "1.0.0"
 val cassandraUnit = "org.cassandraunit" % "cassandra-unit" % "2.1.9.2"
+
+val nettyCommon = "io.netty" % "netty-common" % "4.0.56.Final"
+
+
 
 lazy val root = (project in file("."))
   .aggregate(agent, playground)
@@ -32,7 +37,7 @@ lazy val agent = (project in file("agent"))
     libraryDependencies ++=
       compileScope(kamonCore) ++
         providedScope(aspectJ, core) ++
-        testScope(scalatest, kamonTestKit, logbackClassic, cassandraUnit)
+        testScope(scalatest, kamonTestKit, logbackClassic, cassandraUnit, nettyCommon)
   )
 
 lazy val playground = (project in file("playground"))
