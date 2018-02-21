@@ -14,7 +14,7 @@ services:
 # Start Cassandra in a docker image
 before_install:
  - docker pull cassandra:3
- - docker run -d -p 7199:7199 -p 9142:9042 -p 9160:9160 -e CASSANDRA_DC=DC1 -e CASSANDRA_START_RPC=true  -e CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch cassandra:3
+ - docker run -d -p 7199:7199 -p 9042:9042 -p 9160:9160 -e CASSANDRA_DC=DC1 -e CASSANDRA_START_RPC=true  -e CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch cassandra:3
 
 before_script:
   - mkdir $TRAVIS_BUILD_DIR/tmp

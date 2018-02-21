@@ -212,7 +212,6 @@ class IntegrationSpec extends FlatSpec with Matchers with BeforeAndAfterAll with
 
   val cluster: Cluster = Cluster.builder()
     .addContactPoint("127.0.0.1")
-    .withPort(9142)
     .build()
   var session: Session = _
 
