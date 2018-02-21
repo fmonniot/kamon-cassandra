@@ -10,7 +10,7 @@ val core = "com.datastax.cassandra" % "cassandra-driver-core" % "3.3.2"
 val kamonTestKit = "io.kamon" %% "kamon-testkit" % "1.0.0"
 val cassandraUnit = "org.cassandraunit" % "cassandra-unit" % "2.1.9.2"
 
-val nettyCommon = "io.netty" % "netty-common" % "4.0.56.Final"
+val nettyCommon = "io.netty" % "netty-common" % "4.1.21.Final"
 
 
 
