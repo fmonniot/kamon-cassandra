@@ -12,9 +12,10 @@
  *  and limitations under the License.
  */
 
+import bintray.BintrayKeys
 import io.kamon.sbt.umbrella.KamonSbtUmbrella
 import sbt.Keys._
-import sbt.{AutoPlugin, Def, Level, Plugins, Process, ProcessLogger, Resolver, SettingKey, ThisBuild}
+import sbt._
 
 import scala.util.Try
 
@@ -42,6 +43,18 @@ object TravisCI extends AutoPlugin {
 
     // Let us overrides the log level directly from an environment variable
     logLevel := sys.env.get("LOG_LEVEL").flatMap(Level(_)).getOrElse(Level.Info),
+
+    BintrayKeys.bintrayCredentialsFile := {
+
+      if (travisCI.value) {
+        // Can't use the user home in Travis (can't write to it)
+        val cwd = file(".").getAbsoluteFile
+
+        (cwd / ".bintray_credentials").getCanonicalFile
+      } else {
+        Path.userHome / ".bintray" / ".credentials"
+      }
+    },
 
     resolvers ++= Seq(
       Resolver.bintrayRepo("fmonniot", "snapshots"),
