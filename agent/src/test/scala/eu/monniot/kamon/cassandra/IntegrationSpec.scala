@@ -69,7 +69,7 @@ class IntegrationSpec extends FlatSpec with Matchers with BeforeAndAfterAll with
 
       span.tags("error") shouldBe TagValue.True
       span.tags("error.kind") shouldBe TagValue.String("com.datastax.driver.core.exceptions.SyntaxError")
-      span.tags("error.object") shouldBe TagValue.String("line 1:25 no viable alternative at input 'VALUES' (INSERT INTO ks.notatable [VALUES]...)")
+      span.tags("error.object") shouldBe a[TagValue.String]
     }
 
     Try(session.execute(select))
@@ -84,7 +84,7 @@ class IntegrationSpec extends FlatSpec with Matchers with BeforeAndAfterAll with
 
       span.tags("error") shouldBe TagValue.True
       span.tags("error.kind") shouldBe TagValue.String("com.datastax.driver.core.exceptions.InvalidQueryException")
-      span.tags("error.object") shouldBe TagValue.String("Undefined column name notakey")
+      span.tags("error.object") shouldBe a[TagValue.String]
     }
   }
 
@@ -213,6 +213,7 @@ class IntegrationSpec extends FlatSpec with Matchers with BeforeAndAfterAll with
 
   val cluster: Cluster = Cluster.builder()
     .addContactPoint("127.0.0.1")
+    .withPort(9142)
     .build()
   var session: Session = _
 
