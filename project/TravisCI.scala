@@ -14,7 +14,7 @@
 
 import io.kamon.sbt.umbrella.KamonSbtUmbrella
 import sbt.Keys._
-import sbt.{AutoPlugin, Classpaths, Def, Level, Plugins, Process, ProcessLogger, SettingKey, ThisBuild}
+import sbt.{AutoPlugin, Def, Level, Plugins, Process, ProcessLogger, SettingKey, ThisBuild}
 
 import scala.util.Try
 
@@ -37,7 +37,6 @@ object TravisCI extends AutoPlugin {
     version in ThisBuild := versionSetting.value,
     // We are overriding the Kamon publish task here, but as they just check for a dirty repo
     // and we are restricting the build to Travis CI it's not really a problem.
-    publish := publishOnlyWithTravisTask.value,
     travisCI := boolEnv("TRAVIS") && boolEnv("CI"),
     // Let us overrides the log level directly from an environment variable
     logLevel := sys.env.get("LOG_LEVEL").flatMap(Level(_)).getOrElse(Level.Info)
@@ -70,18 +69,5 @@ object TravisCI extends AutoPlugin {
     }
 
     Def.setting(v)
-  }
-
-  def publishOnlyWithTravisTask = Def.taskDyn[Unit] {
-    val log = streams.value.log
-
-    val isTravis = travisCI.value
-    val branch = Process("git rev-parse --abbrev-ref HEAD").lines.head
-
-    log.debug(s"is running on travis: $isTravis (${boolEnv("TRAVIS")} && ${boolEnv("CI")})")
-    log.debug(s"is running on branch: $branch")
-
-    if (isTravis && branch == "master") Classpaths.publishTask(publishConfiguration, deliver)
-    else Def.task(log.warn("Won't publish unless built by Travis CI on master"))
   }
 }
