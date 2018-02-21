@@ -78,7 +78,7 @@ object TravisCI extends AutoPlugin {
     val isTravis = travisCI.value
     val branch = Process("git rev-parse --abbrev-ref HEAD").lines.head
 
-    log.debug(s"is running on travis: $isTravis")
+    log.debug(s"is running on travis: $isTravis (${boolEnv("TRAVIS")} && ${boolEnv("CI")})")
     log.debug(s"is running on branch: $branch")
 
     if (isTravis && branch == "master") Classpaths.publishTask(publishConfiguration, deliver)
