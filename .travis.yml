@@ -36,5 +36,5 @@ before_cache:
 
 # Publish on master or tagged
 after_success:
- - test $TRAVIS_BRANCH = "master"    && sbt +publish
- - test $TRAVIS_BRANCH = $TRAVIS_TAG && sbt +publish
+ - test $TRAVIS_BRANCH = "master"    && sh project/writing_bintray_creds.sh && sbt +publish
+ - test $TRAVIS_BRANCH = $TRAVIS_TAG && sh project/writing_bintray_creds.sh && sbt +publish

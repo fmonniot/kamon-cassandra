@@ -43,17 +43,11 @@ object TravisCI extends AutoPlugin {
     // Let us overrides the log level directly from an environment variable
     logLevel := sys.env.get("LOG_LEVEL").flatMap(Level(_)).getOrElse(Level.Info),
 
-    resolvers ++= Seq(snapshotsResolver, releaseResolver),
-
-    // Make SBT happy (fix RuntimeException: Repository for publishing is not specified.)
-    publishTo := {
-      if (isSnapshot.value) Option(snapshotsResolver)
-      else Option(releaseResolver)
-    }
+    resolvers ++= Seq(
+      Resolver.bintrayRepo("fmonniot", "snapshots"),
+      Resolver.bintrayRepo("fmonniot", "maven")
+    )
   )
-
-  private val snapshotsResolver = Resolver.bintrayRepo("fmonniot", "snapshots")
-  private val releaseResolver = Resolver.bintrayRepo("fmonniot", "maven")
 
   private def boolEnv(name: String) = sys.env.get(name).flatMap(s => Try(s.toBoolean).toOption).getOrElse(false)
 
