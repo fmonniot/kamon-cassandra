@@ -14,7 +14,7 @@
 
 import io.kamon.sbt.umbrella.KamonSbtUmbrella
 import sbt.Keys._
-import sbt.{AutoPlugin, Def, Level, Plugins, Process, ProcessLogger, SettingKey, ThisBuild}
+import sbt.{AutoPlugin, Def, Level, Plugins, Process, ProcessLogger, Resolver, SettingKey, ThisBuild}
 
 import scala.util.Try
 
@@ -35,12 +35,25 @@ object TravisCI extends AutoPlugin {
 
   override def projectSettings: Seq[Def.Setting[_]] = Seq(
     version in ThisBuild := versionSetting.value,
+
     // We are overriding the Kamon publish task here, but as they just check for a dirty repo
     // and we are restricting the build to Travis CI it's not really a problem.
     travisCI := boolEnv("TRAVIS") && boolEnv("CI"),
+
     // Let us overrides the log level directly from an environment variable
-    logLevel := sys.env.get("LOG_LEVEL").flatMap(Level(_)).getOrElse(Level.Info)
+    logLevel := sys.env.get("LOG_LEVEL").flatMap(Level(_)).getOrElse(Level.Info),
+
+    resolvers ++= Seq(snapshotsResolver, releaseResolver),
+
+    // Make SBT happy (fix RuntimeException: Repository for publishing is not specified.)
+    publishTo := {
+      if (isSnapshot.value) Option(snapshotsResolver)
+      else Option(releaseResolver)
+    }
   )
+
+  private val snapshotsResolver = Resolver.bintrayRepo("fmonniot", "snapshots")
+  private val releaseResolver = Resolver.bintrayRepo("fmonniot", "maven")
 
   private def boolEnv(name: String) = sys.env.get(name).flatMap(s => Try(s.toBoolean).toOption).getOrElse(false)
 

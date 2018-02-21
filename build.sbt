@@ -26,8 +26,6 @@ lazy val agent = (project in file("agent"))
     bintrayOrganization := None,
     gitAwareVersion := kamonCassandraVersion
   ))
-  .settings(resolvers += Resolver.bintrayRepo("fmonniot", "snapshots"))
-  .settings(resolvers += Resolver.bintrayRepo("fmonniot", "maven"))
   .settings(aspectJSettings: _*)
   .settings(
     libraryDependencies ++=
