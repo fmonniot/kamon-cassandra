@@ -2,10 +2,10 @@
 [![Build Status](https://travis-ci.org/fmonniot/kamon-cassandra.svg?branch=master)](https://travis-ci.org/fmonniot/kamon-cassandra)
 [ ![Download](https://api.bintray.com/packages/fmonniot/maven/kamon-cassandra/images/download.svg) ](https://bintray.com/fmonniot/maven/kamon-cassandra/_latestVersion)
 
-TODO Fix todo in this README
-TODO Investigate the Kamon-agent solution (and add tests if possible)
-TODO License all the files
-TODO Add unit tests for SessionAdvices (object)
+
+- TODO Fix todo in this README
+- TODO Investigate the Kamon-agent solution (and add tests if possible)
+- TODO Add unit tests for SessionAdvices (object)
 
 ### Getting Started
 
