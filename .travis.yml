@@ -34,14 +34,7 @@ before_cache:
   - find $HOME/.ivy2/cache -name "ivydata-*.properties" -print -delete
   - find $HOME/.sbt        -name "*.lock"               -print -delete
 
-deploy:
-  # deploy master as a snapshots
-  - provider: script
-    script: sbt +publish
-    on:
-      branch: master
-  # deploy tags as release
-  - provider: script
-    script: sbt +publish
-    on:
-      tags: true
+# Publish on master and tagged
+after_success:
+ - test $TRAVIS_BRANCH = "master" -o $TRAVIS_BRANCH = $TRAVIS_TAG &&
+     sbt +publish
