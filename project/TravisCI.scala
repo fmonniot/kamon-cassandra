@@ -14,7 +14,7 @@
 
 import io.kamon.sbt.umbrella.KamonSbtUmbrella
 import sbt.Keys._
-import sbt.{AutoPlugin, Classpaths, Def, Plugins, Process, ProcessLogger, SettingKey, ThisBuild}
+import sbt.{AutoPlugin, Classpaths, Def, Level, Plugins, Process, ProcessLogger, SettingKey, ThisBuild}
 
 import scala.util.Try
 
@@ -38,7 +38,9 @@ object TravisCI extends AutoPlugin {
     // We are overriding the Kamon publish task here, but as they just check for a dirty repo
     // and we are restricting the build to Travis CI it's not really a problem.
     publish := publishOnlyWithTravisTask.value,
-    travisCI := boolEnv("TRAVIS") && boolEnv("CI")
+    travisCI := boolEnv("TRAVIS") && boolEnv("CI"),
+    // Let us overrides the log level directly from an environment variable
+    logLevel := sys.env.get("LOG_LEVEL").flatMap(Level(_)).getOrElse(Level.Info)
   )
 
   private def boolEnv(name: String) = sys.env.get(name).flatMap(s => Try(s.toBoolean).toOption).getOrElse(false)
@@ -71,7 +73,6 @@ object TravisCI extends AutoPlugin {
   }
 
   def publishOnlyWithTravisTask = Def.taskDyn[Unit] {
-    println("publishing")
     val log = streams.value.log
 
     val isTravis = travisCI.value
