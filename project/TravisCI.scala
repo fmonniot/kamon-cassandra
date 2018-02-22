@@ -12,7 +12,8 @@
  *  and limitations under the License.
  */
 
-import bintray.BintrayKeys
+import bintray.Bintray
+import bintray.BintrayKeys.{bintrayCredentialsFile, bintrayRepository}
 import io.kamon.sbt.umbrella.KamonSbtUmbrella
 import sbt.Keys._
 import sbt._
@@ -44,7 +45,7 @@ object TravisCI extends AutoPlugin {
     // Let us overrides the log level directly from an environment variable
     logLevel := sys.env.get("LOG_LEVEL").flatMap(Level(_)).getOrElse(Level.Info),
 
-    BintrayKeys.bintrayCredentialsFile := {
+    bintrayCredentialsFile := {
 
       if (travisCI.value) {
         // Can't use the user home in Travis (can't write to it)
@@ -54,6 +55,12 @@ object TravisCI extends AutoPlugin {
       } else {
         Path.userHome / ".bintray" / ".credentials"
       }
+    },
+
+    bintrayRepository := {
+      if (isSnapshot.value) "snapshots"
+      else if (sbtPlugin.value) Bintray.defaultSbtPluginRepository
+      else "maven"
     },
 
     resolvers ++= Seq(

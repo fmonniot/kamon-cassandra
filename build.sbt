@@ -1,4 +1,4 @@
-val kamonCassandraVersion = "1.0.0"
+val kamonCassandraVersion = "1.0.1"
 
 val kamonCore = "io.kamon" %% "kamon-core" % "1.0.0"
 val core = "com.datastax.cassandra" % "cassandra-driver-core" % "3.4.0"
