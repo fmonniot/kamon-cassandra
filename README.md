@@ -13,7 +13,7 @@ Supported releases and dependencies are shown below.
 
 | kamon-cassandra  | status       | jdk  | scala      | driver |
 |:----------------:|:------------:|:----:|:----------:|:------:|
-| 1.0.0            | experimental | 1.8+ | 2.11, 2.12 | 3.4.0  |
+| 1.0.1            | experimental | 1.8+ | 2.11, 2.12 | 3.4.0  |
 
 
 To get started with SBT, simply add the following to your `build.sbt` file:
@@ -24,7 +24,7 @@ resolvers += Resolver.jcenterRepo
 // Or if you like living on the edge:
 // resolvers += Resolver.bintrayRepo("fmonniot", "snapshots")
 
-libraryDependencies += "eu.monniot.kamon" %% "kamon-cassandra" % "1.0.0"
+libraryDependencies += "eu.monniot.kamon" %% "kamon-cassandra" % "1.0.1"
 ```
 
 ### Run
