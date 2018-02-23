@@ -19,8 +19,10 @@ Supported releases and dependencies are shown below.
 To get started with SBT, simply add the following to your `build.sbt` file:
 
 ```scala
-resolvers += Resolver.bintrayRepo("fmonniot", "maven")
-// Or you can use `Resolver.bintrayRepo("fmonniot", "snapshots")` to use the snapshots versions
+// The library is publish on JCenter, so add the following line if not already present
+resolvers += Resolver.jcenterRepo
+// Or if you like living on the edge:
+// resolvers += Resolver.bintrayRepo("fmonniot", "snapshots")
 
 libraryDependencies += "eu.monniot.kamon" %% "kamon-cassandra" % "1.0.0"
 ```
